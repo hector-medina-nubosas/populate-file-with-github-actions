@@ -1,0 +1,23 @@
+name: Test populate file.
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  GA4_CREDENTIALS: ${{ secrets.GA4_CREDENTIALS }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code.
+      - uses: actions/checkout@v2
+      - name: Populate GA4_credentials.
+        run: |
+          cat ${GA4_CREDENTIALS} > google/ga4_credentials.json
+      - name: check
+        run: |
+          cat google/ga4_credentials.json
